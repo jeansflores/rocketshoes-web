@@ -12,9 +12,31 @@ export default createGlobalStyle`
     box-sizing: border-box;
   }
 
+  html, body {
+    height: 100vh;
+    overflow: auto;
+  }
+
   body {
-    background: #191920 url(${background}) no-repeat center top;
-    -webkit-font-smoothing: antiliased;
+    background: linear-gradient(-45deg, #202020 0%, #191920 100%);
+    -webkit-font-smoothing: antialiased;
+    color: #333;
+    position: relative;
+
+    &::before {
+      content: '';
+      top: 0;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      background: url(${background}) no-repeat center -60px/101vw;
+      z-index: -5;
+
+      @media (max-width: 1200px) {
+        background: url(${background}) no-repeat center top;
+      }
+    }
   }
 
   body, input, button {
