@@ -1,101 +1,46 @@
-import React from 'react';
-
+import React, { Component } from 'react';
 import { MdAddShoppingCart } from 'react-icons/md';
+import api from '../../services/api';
+import { formatPrice } from '../../util/format';
+
 import { ProductList } from './styles';
 
-export default function Home() {
-  return (
-    <ProductList>
-      <li>
-        <img
-          src="https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/3a19729256034c32b7a8aa3a010556ba_9366/Tenis_NMD_R1_Primeknit_Preto_EE5075_01_standard.jpg"
-          alt="Tênis"
-        />
-        <strong>Tenis</strong>
-        <span>R$ 129,90</span>
+export default class Home extends Component {
+  state = {
+    products: [],
+  };
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/3a19729256034c32b7a8aa3a010556ba_9366/Tenis_NMD_R1_Primeknit_Preto_EE5075_01_standard.jpg"
-          alt="Tênis"
-        />
-        <strong>Tenis</strong>
-        <span>R$ 129,90</span>
+  async componentDidMount() {
+    const response = await api.get('products');
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/3a19729256034c32b7a8aa3a010556ba_9366/Tenis_NMD_R1_Primeknit_Preto_EE5075_01_standard.jpg"
-          alt="Tênis"
-        />
-        <strong>Tenis</strong>
-        <span>R$ 129,90</span>
+    const products = response.data.map(product => ({
+      ...product,
+      priceFormatted: formatPrice(product.price),
+    }));
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/3a19729256034c32b7a8aa3a010556ba_9366/Tenis_NMD_R1_Primeknit_Preto_EE5075_01_standard.jpg"
-          alt="Tênis"
-        />
-        <strong>Tenis</strong>
-        <span>R$ 129,90</span>
+    this.setState({ products });
+  }
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/3a19729256034c32b7a8aa3a010556ba_9366/Tenis_NMD_R1_Primeknit_Preto_EE5075_01_standard.jpg"
-          alt="Tênis"
-        />
-        <strong>Tenis</strong>
-        <span>R$ 129,90</span>
+  render() {
+    const { products } = this.state;
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-      <li>
-        <img
-          src="https://assets.adidas.com/images/w_840,h_840,f_auto,q_auto:sensitive,fl_lossy/3a19729256034c32b7a8aa3a010556ba_9366/Tenis_NMD_R1_Primeknit_Preto_EE5075_01_standard.jpg"
-          alt="Tênis"
-        />
-        <strong>Tenis</strong>
-        <span>R$ 129,90</span>
+    return (
+      <ProductList>
+        {products.map(product => (
+          <li key={product.id}>
+            <img src={product.image} alt={product.title} />
+            <strong>{product.title}</strong>
+            <span>{product.priceFormatted}</span>
 
-        <button type="button">
-          <div>
-            <MdAddShoppingCart size={16} color="#FFF" /> 3
-          </div>
-          <span>ADICIONAR AO CARRINHO</span>
-        </button>
-      </li>
-    </ProductList>
-  );
+            <button type="button">
+              <div>
+                <MdAddShoppingCart size={16} color="#FFF" /> 3
+              </div>
+              <span>ADICIONAR AO CARRINHO</span>
+            </button>
+          </li>
+        ))}
+      </ProductList>
+    );
+  }
 }
