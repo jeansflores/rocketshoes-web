@@ -29,52 +29,60 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
     <Container>
       {cart.length ? (
         <>
-          <ProductTable>
-            <thead>
-              <tr>
-                <th> </th>
-                <th>PRODUTO</th>
-                <th>QTD</th>
-                <th>SUBTOTAL</th>
-                <th> </th>
-              </tr>
-            </thead>
-            <tbody>
-              {cart.map(product => (
-                <tr key={product.id}>
-                  <td>
-                    <img src={product.image} alt={product.title} />
-                  </td>
-                  <td>
-                    <strong>{product.title}</strong>
-                    <span>{product.priceFormatted}</span>
-                  </td>
-                  <td>
-                    <div>
-                      <button type="button" onClick={() => decrement(product)}>
-                        <MdRemoveCircleOutline size={20} color="#7159c1" />
-                      </button>
-                      <input type="number" readOnly value={product.amount} />
-                      <button type="button" onClick={() => increment(product)}>
-                        <MdAddCircleOutline size={20} color="#7159c1" />
-                      </button>
-                    </div>
-                  </td>
-                  <td>
-                    <strong>{product.subtotal}</strong>
-                  </td>
-                  <td>
-                    <button
-                      type="button"
-                      onClick={() => removeFromCart(product.id)}
-                    >
-                      <MdDelete size={20} color="#7159c1" />
-                    </button>
-                  </td>
+          <div className="scroll">
+            <ProductTable>
+              <thead>
+                <tr>
+                  <th> </th>
+                  <th>PRODUTO</th>
+                  <th>QTD</th>
+                  <th>SUBTOTAL</th>
+                  <th> </th>
                 </tr>
-              ))}
-            </tbody>
-          </ProductTable>
+              </thead>
+              <tbody>
+                {cart.map(product => (
+                  <tr key={product.id}>
+                    <td>
+                      <img src={product.image} alt={product.title} />
+                    </td>
+                    <td>
+                      <strong>{product.title}</strong>
+                      <span>{product.priceFormatted}</span>
+                    </td>
+                    <td>
+                      <div>
+                        <button
+                          type="button"
+                          onClick={() => decrement(product)}
+                        >
+                          <MdRemoveCircleOutline size={20} color="#7159c1" />
+                        </button>
+                        <input type="number" readOnly value={product.amount} />
+                        <button
+                          type="button"
+                          onClick={() => increment(product)}
+                        >
+                          <MdAddCircleOutline size={20} color="#7159c1" />
+                        </button>
+                      </div>
+                    </td>
+                    <td>
+                      <strong>{product.subtotal}</strong>
+                    </td>
+                    <td>
+                      <button
+                        type="button"
+                        onClick={() => removeFromCart(product.id)}
+                      >
+                        <MdDelete size={20} color="#7159c1" />
+                      </button>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </ProductTable>
+          </div>
 
           <footer>
             <button type="button">Finalizar pedido</button>
@@ -88,10 +96,7 @@ function Cart({ cart, total, removeFromCart, updateAmountRequest }) {
         <EmptyCart>
           <MdShoppingCart size={100} color={lighten(0.3, '#999')} />
           <strong>Seu carrinho está vazio</strong>
-          <span>Confira nosso catálogo</span>
-          <Link to="/">
-            <button type="button">Voltar a comprar</button>
-          </Link>
+          <Link to="/">Confira nosso catálogo</Link>
         </EmptyCart>
       )}
     </Container>

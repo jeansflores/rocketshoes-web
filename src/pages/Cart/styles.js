@@ -1,16 +1,28 @@
 import styled from 'styled-components';
-import { darken } from 'polished';
+import { darken, lighten } from 'polished';
 
 export const Container = styled.div`
+  display: flex;
+  flex-direction: column;
   padding: 30px;
   background: #fff;
   border-radius: 4px;
+
+  div.scroll {
+    overflow: auto;
+    flex-grow: 1;
+    min-height: 0;
+  }
 
   footer {
     margin-top: 30px;
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @media (max-width: 520px) {
+      flex-direction: column-reverse;
+    }
 
     button {
       background: #7159c1;
@@ -21,6 +33,12 @@ export const Container = styled.div`
       font-weight: bold;
       text-transform: uppercase;
       transition: background 0.3s;
+
+      @media (max-width: 520px) {
+        margin-top: 20px;
+        width: 100%;
+        padding: 20px;
+      }
 
       &:hover {
         background: ${darken(0.1, '#7159c1')};
@@ -36,11 +54,15 @@ export const ProductTable = styled.table`
     color: #999;
     text-align: left;
     padding: 12px;
+
+    &:nth-child(3) {
+      text-align: center;
+    }
   }
 
   tbody td {
     padding: 12px;
-    border-bottom: 1px solif #eee;
+    border-bottom: 1px solid #eee;
   }
 
   img {
@@ -108,21 +130,16 @@ export const EmptyCart = styled.div`
     text-align: center;
   }
 
-  span {
-    margin-top: 5px;
-    margin-bottom: 15px;
-    font-size: 15px;
+  a {
+    margin-top: 10px;
+    font-size: 16px;
     text-align: center;
-  }
-
-  button {
-    background: none;
-    border: 1px solid #7159c1;
-    border-radius: 3px;
-    padding: 6px;
     color: #7159c1;
-    text-transform: uppercase;
-    font-weight: bold;
-    font-size: 14px;
+    text-decoration: none;
+    transition: color 0.3s;
+
+    &:hover {
+      color: ${lighten(0.2, '#7159c1')};
+    }
   }
 `;
