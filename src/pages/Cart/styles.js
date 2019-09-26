@@ -93,3 +93,36 @@ export const Total = styled.div`
     margin-left: 5px;
   }
 `;
+
+export const EmptyCart = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  align-content: center;
+  margin: 30px;
+
+  strong {
+    margin-top: 20px;
+    font-size: 20px;
+    text-align: center;
+  }
+
+  span {
+    margin-top: 5px;
+    margin-bottom: 15px;
+    font-size: 15px;
+    text-align: center;
+  }
+
+  button {
+    background: none;
+    border: 1px solid #7159c1;
+    border-radius: 3px;
+    padding: 6px;
+    color: #7159c1;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 14px;
+  }
+`;
